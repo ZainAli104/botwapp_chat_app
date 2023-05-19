@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
-import Img from "../img/img.png";
-import Attach from "../img/attach.png";
+// import Img from "../img/img.png";
+// import Attach from "../img/attach.png";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
 import {
@@ -45,7 +45,7 @@ const Input = () => {
           });
         }
       );
-    } else {
+    } else if (text) {
       await updateDoc(doc(db, "chats", data.chatId), {
         messages: arrayUnion({
           id: uuid(),
@@ -54,6 +54,9 @@ const Input = () => {
           date: Timestamp.now(),
         }),
       });
+    } else {
+      console.error("No text or image");
+      return;
     }
 
     await updateDoc(doc(db, "userChats", currentUser.uid), {
@@ -80,9 +83,14 @@ const Input = () => {
         placeholder="Type something..."
         onChange={(e) => setText(e.target.value)}
         value={text}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            handleSend();
+          }
+        }}
       />
       <div className="send">
-        <img src={Attach} alt="" />
+        {/* <img src={Attach} alt="" />
         <input
           type="file"
           style={{ display: "none" }}
@@ -91,7 +99,7 @@ const Input = () => {
         />
         <label htmlFor="file">
           <img src={Img} alt="" />
-        </label>
+        </label> */}
         <button onClick={handleSend}>Send</button>
       </div>
     </div>

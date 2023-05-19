@@ -8,7 +8,7 @@ const Chats = () => {
   const [chats, setChats] = useState([]);
 
   const { currentUser } = useContext(AuthContext);
-  const { dispatch } = useContext(ChatContext);
+  const { dispatch, setChatPage } = useContext(ChatContext);
 
   useEffect(() => {
     const getChats = () => {
@@ -26,6 +26,7 @@ const Chats = () => {
 
   const handleSelect = (u) => {
     dispatch({ type: "CHANGE_USER", payload: u });
+    setChatPage(true);
   };
 
   return (
@@ -39,7 +40,7 @@ const Chats = () => {
           <img src={chat[1].userInfo.photoURL} alt="" />
           <div className="userChatInfo">
             <span>{chat[1].userInfo.displayName}</span>
-            <p>{chat[1].lastMessage?.text}</p>
+            <p>{chat[1].lastMessage?.text?.slice(0, 30) + (chat[1].lastMessage?.text?.length > 15 ? "..." : "")}</p>
           </div>
         </div>
       ))}
