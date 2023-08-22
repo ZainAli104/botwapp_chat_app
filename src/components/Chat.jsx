@@ -16,10 +16,17 @@ const Chat = () => {
       {data.user?.photoURL ? (
         <>
         <img className="back_icon" src={back} alt="back" onClick={() => setChatPage(false)} />
-        <img src={data.user?.photoURL} alt="profile_pic" />
-        <span>{data.user?.displayName}</span>
+        <img src='https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg' alt="profile_pic" />
+        {/* <img src={data.user?.photoURL} alt="profile_pic" /> */}
+        <div>
+          <span>{data.user?.displayName}</span>
+          <p>+{data.user?.number}</p>
+        </div>
         </>
       ) : null}
+      <div className="close-wrap">
+        <button>Close</button>
+      </div>
         {/* <div className="chatIcons">
           <img src={Cam} alt="" />
           <img src={Add} alt="" />

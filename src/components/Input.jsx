@@ -17,11 +17,13 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 const Input = () => {
   const [text, setText] = useState("");
   const [img, setImg] = useState(null);
+  const [isLoading, setIsLoading] = useState(false)
 
   const { currentUser } = useContext(AuthContext);
   const { data } = useContext(ChatContext);
 
   const handleSend = async () => {
+    setIsLoading(true);
     if (img) {
       const storageRef = ref(storage, uuid());
 
@@ -45,7 +47,7 @@ const Input = () => {
           });
         }
       );
-    } else if (text) {
+    } else if (text.trim()) {
       await updateDoc(doc(db, "chats", data.chatId), {
         messages: arrayUnion({
           id: uuid(),
@@ -56,6 +58,7 @@ const Input = () => {
       });
     } else {
       console.error("No text or image");
+      setIsLoading(false);
       return;
     }
 
@@ -75,10 +78,17 @@ const Input = () => {
 
     setText("");
     setImg(null);
+    setIsLoading(false);
   };
   return (
     <div className="input">
-      <input
+      <textarea
+        type="text"
+        placeholder="Type something..."
+        onChange={(e) => setText(e.target.value)}
+        value={text}
+      />
+      {/* <input
         type="text"
         placeholder="Type something..."
         onChange={(e) => setText(e.target.value)}
@@ -88,7 +98,7 @@ const Input = () => {
             handleSend();
           }
         }}
-      />
+      /> */}
       <div className="send">
         {/* <img src={Attach} alt="" />
         <input
@@ -100,7 +110,11 @@ const Input = () => {
         <label htmlFor="file">
           <img src={Img} alt="" />
         </label> */}
-        <button onClick={handleSend}>Send</button>
+        {!isLoading ? (
+          <button onClick={handleSend}>Send</button>
+        ) : (
+          <button>Sending...</button>
+        )}
       </div>
     </div>
   );

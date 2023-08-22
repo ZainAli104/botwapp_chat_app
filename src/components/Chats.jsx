@@ -37,7 +37,8 @@ const Chats = () => {
           key={chat[0]}
           onClick={() => handleSelect(chat[1].userInfo)}
         >
-          <img src={chat[1].userInfo.photoURL} alt="" />
+          <img src='https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg' alt="" />
+          {/* <img src={chat[1].userInfo.photoURL} alt="" /> */}
           <div className="userChatInfo">
             <span>{chat[1].userInfo.displayName}</span>
             <p>{chat[1].lastMessage?.text?.slice(0, 30) + (chat[1].lastMessage?.text?.length > 15 ? "..." : "")}</p>
