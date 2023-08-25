@@ -13,14 +13,13 @@ const Chat = () => {
   return (
     <div className="chat">
       <div className="chatInfo">
-      {data.user?.photoURL ? (
+      {data.user?.displayName ? (
         <>
         <img className="back_icon" src={back} alt="back" onClick={() => setChatPage(false)} />
         <img src='https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg' alt="profile_pic" />
         {/* <img src={data.user?.photoURL} alt="profile_pic" /> */}
         <div>
           <span>{data.user?.displayName}</span>
-          <p>+{data.user?.number}</p>
         </div>
         </>
       ) : null}

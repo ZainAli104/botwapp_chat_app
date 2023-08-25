@@ -1,5 +1,6 @@
 import { doc, onSnapshot } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
+
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
 import { db } from "../firebase";
@@ -35,12 +36,12 @@ const Chats = () => {
         <div
           className="userChat"
           key={chat[0]}
-          onClick={() => handleSelect(chat[1].userInfo)}
+          onClick={() => handleSelect(chat[1])}
         >
           <img src='https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg' alt="" />
           {/* <img src={chat[1].userInfo.photoURL} alt="" /> */}
           <div className="userChatInfo">
-            <span>{chat[1].userInfo.displayName}</span>
+            <span>{chat[1].displayName}</span>
             <p>{chat[1].lastMessage?.text?.slice(0, 30) + (chat[1].lastMessage?.text?.length > 15 ? "..." : "")}</p>
           </div>
         </div>

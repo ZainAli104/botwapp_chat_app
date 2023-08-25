@@ -26,7 +26,6 @@ const Search = () => {
       querySnapshot.forEach((doc) => {
         const userData = doc.data();
         if (userData.displayName.toLowerCase().includes(username.toLowerCase())) {
-          console.log(userData.displayName);
           usersData.push(userData);
         }
       });
